@@ -1,58 +1,90 @@
-const loading = document.getElementById("loading");
-const main = document.getElementById("main");
+const enterBtn = document.getElementById("enterBtn");
 const muteBtn = document.getElementById("muteBtn");
-
 const overlay = document.getElementById("overlay");
 const overlayTitle = document.getElementById("overlayTitle");
 const overlayBody = document.getElementById("overlayBody");
 const closeOverlay = document.getElementById("closeOverlay");
 
-const clickSfx = new Audio("assets/click.mp3");
-const ambient = new Audio("assets/ambient.mp3");
-ambient.loop = true;
-
 let muted = false;
 let entered = false;
 
+// Безопасно создаём аудио (если файлов нет — просто не играет)
+let clickSfx = null;
+let ambient = null;
+
+try{
+  clickSfx = new Audio("assets/click.mp3");
+  clickSfx.volume = 0.5;
+}catch(e){}
+
+try{
+  ambient = new Audio("assets/ambient.mp3");
+  ambient.loop = true;
+  ambient.volume = 0.35;
+}catch(e){}
+
 function playClick(){
-  if(!muted){
+  if (muted || !clickSfx) return;
+  try{
     clickSfx.currentTime = 0;
-    clickSfx.play().catch(()=>{});
-  }
+    clickSfx.play();
+  }catch(e){}
 }
 
-loading.addEventListener("click",()=>{
-  entered = true;
-  loading.remove();
-  main.hidden = false;
-  if(!muted) ambient.play().catch(()=>{});
-});
-
-muteBtn.addEventListener("click",()=>{
-  muted = !muted;
+function setMuted(val){
+  muted = val;
+  muteBtn.setAttribute("aria-pressed", String(muted));
   muteBtn.textContent = muted ? "unmute" : "mute";
-  muted ? ambient.pause() : ambient.play().catch(()=>{});
-});
+  if (!ambient) return;
+  if (muted) ambient.pause();
+  else if (entered) ambient.play().catch(()=>{});
+}
 
-document.addEventListener("click",(e)=>{
-  if(e.target.closest(".sfx") || e.target.closest(".chip")) playClick();
+function enter(){
+  if (entered) return;
+  entered = true;
+  playClick();
+  if (!muted && ambient) ambient.play().catch(()=>{});
+  enterBtn.textContent = "entered";
+  enterBtn.disabled = true;
+}
+
+function openOverlay(){
+  overlayTitle.textContent = "latest release — Айлис";
+  overlayBody.innerHTML = `
+    <p>
+      <a class="sfx" href="https://soundcloud.com/aylis" target="_blank" rel="noreferrer">
+        open on soundcloud
+      </a>
+    </p>
+    <p style="opacity:.7">latest sounds & experiments by Айлис</p>
+  `;
+  overlay.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function close(){
+  overlay.hidden = true;
+  document.body.style.overflow = "";
+}
+
+// events
+enterBtn.addEventListener("click", enter);
+muteBtn.addEventListener("click", () => setMuted(!muted));
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest("a.sfx") || e.target.closest("button.chip")) playClick();
 
   const open = e.target.closest("[data-open]");
-  if(open){
+  if (open){
     e.preventDefault();
-    overlay.hidden = false;
-    overlayTitle.textContent = "latest release — Айлис";
-    overlayBody.innerHTML = `
-      <p>
-        <a class="sfx" href="https://soundcloud.com/aylis" target="_blank">
-          open on soundcloud
-        </a>
-      </p>
-      <p style="color:#aaa">latest sounds & experiments by Айлис</p>
-    `;
+    openOverlay();
   }
 });
 
-closeOverlay.addEventListener("click",()=>{
-  overlay.hidden = true;
-});
+closeOverlay.addEventListener("click", close);
+overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !overlay.hidden) close(); });
+
+// стартовое состояние
+setMuted(false);
