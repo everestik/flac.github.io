@@ -3,16 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>yourname</title>
-  <link rel="preload" href="assets/bg.jpg" as="image">
+  <title>Айлис</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <!-- FX -->
-  <div class="bg" aria-hidden="true"></div>
-  <div class="scanlines" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
+  <div class="bg"></div>
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
 
   <!-- Loading -->
   <div id="loading" class="loading">
@@ -22,71 +20,60 @@
 
   <!-- Top bar -->
   <header class="topbar">
-    <button id="muteBtn" class="chip" type="button" aria-pressed="false">mute</button>
+    <button id="muteBtn" class="chip">mute</button>
     <span class="sep">/</span>
-    <a class="chip" href="#" id="nowPlaying" data-open="release">latest release</a>
+    <a class="chip" href="#" data-open="release">latest release</a>
   </header>
 
   <!-- Main -->
-  <main class="wrap" id="main" hidden>
+  <main id="main" class="wrap" hidden>
     <section class="card">
-      <h1 class="title glitch" data-text="yourname">yourname</h1>
-      <p class="sub">minimal / retro / links</p>
+      <h1 class="title glitch" data-text="Айлис">Айлис</h1>
+      <p class="sub">digital / sound / links</p>
 
       <div class="grid">
         <div class="block">
           <h2>socials</h2>
           <ul>
-            <li><a class="sfx" href="https://tiktok.com" target="_blank" rel="noreferrer">tiktok</a></li>
-            <li><a class="sfx" href="https://instagram.com" target="_blank" rel="noreferrer">instagram</a></li>
-            <li><a class="sfx" href="https://t.me" target="_blank" rel="noreferrer">telegram</a></li>
-            <li><a class="sfx" href="https://youtube.com" target="_blank" rel="noreferrer">youtube</a></li>
+            <li><a class="sfx" href="https://t.me/aylis" target="_blank">telegram</a></li>
+            <li><a class="sfx" href="https://discord.com/users/AYLIS_ID" target="_blank">discord</a></li>
+            <li><a class="sfx" href="https://youtube.com/@aylis" target="_blank">youtube</a></li>
+            <li><a class="sfx" href="https://soundcloud.com/aylis" target="_blank">soundcloud</a></li>
           </ul>
         </div>
 
         <div class="block">
           <h2>music</h2>
           <ul>
-            <li><a class="sfx" href="https://soundcloud.com" target="_blank" rel="noreferrer">soundcloud</a></li>
-            <li><a class="sfx" href="https://open.spotify.com" target="_blank" rel="noreferrer">spotify</a></li>
-          </ul>
-        </div>
-
-        <div class="block">
-          <h2>shop</h2>
-          <ul>
-            <li><a class="sfx" href="https://boosty.to" target="_blank" rel="noreferrer">kit v1</a></li>
-            <li><a class="sfx" href="https://boosty.to" target="_blank" rel="noreferrer">demo</a></li>
+            <li><a class="sfx" href="https://soundcloud.com/aylis" target="_blank">soundcloud</a></li>
           </ul>
         </div>
 
         <div class="block">
           <h2>contact</h2>
           <ul>
-            <li><a class="sfx" href="#" data-open="guidelines">guidelines</a></li>
-            <li><a class="sfx" href="mailto:you@mail.com">you@mail.com</a></li>
-            <li><a class="sfx" href="https://t.me/yourtag" target="_blank" rel="noreferrer">@yourtag</a></li>
-            <li><a class="sfx" href="https://discord.com" target="_blank" rel="noreferrer">@discord</a></li>
+            <li><a class="sfx" href="https://t.me/aylis" target="_blank">telegram</a></li>
+            <li><a class="sfx" href="https://discord.com/users/AYLIS_ID" target="_blank">discord</a></li>
+            <li><a class="sfx" href="mailto:aylis@mail.com">aylis@mail.com</a></li>
           </ul>
         </div>
       </div>
 
       <footer class="footer">
-        <span>dev & design by you</span>
+        <span>Айлис</span>
         <span class="sep">/</span>
-        <span>music & sfx optional</span>
+        <span>all rights reserved</span>
       </footer>
     </section>
   </main>
 
-  <!-- Overlay pages -->
+  <!-- Overlay -->
   <section id="overlay" class="overlay" hidden>
-    <div class="overlay__panel" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+    <div class="overlay__panel">
       <div class="overlay__top">
-        <div id="overlayTitle" class="overlay__title">title</div>
-        <button id="closeOverlay" class="chip" type="button">go back</button>
+        <div id="overlayTitle" class="overlay__title"></div>
+        <button id="closeOverlay" class="chip">go back</button>
       </div>
-
       <div id="overlayBody" class="overlay__body"></div>
     </div>
   </section>
