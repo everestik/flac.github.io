@@ -7,53 +7,51 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
-  <div class="bg"></div>
-  <div class="scanlines"></div>
-  <div class="vignette"></div>
-
-  <!-- Loading -->
-  <div id="loading" class="loading">
-    <div class="loading__text">loading<span class="dots">...</span></div>
-    <div class="loading__hint">click to enter</div>
-  </div>
+<body class="crt">
+  <!-- FX layers -->
+  <div class="bg" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
 
   <!-- Top bar -->
   <header class="topbar">
-    <button id="muteBtn" class="chip">mute</button>
+    <button id="enterBtn" class="chip" type="button">enter</button>
+    <button id="muteBtn" class="chip" type="button" aria-pressed="false">mute</button>
     <span class="sep">/</span>
     <a class="chip" href="#" data-open="release">latest release</a>
   </header>
 
-  <!-- Main -->
-  <main id="main" class="wrap" hidden>
+  <!-- Main (виден всегда) -->
+  <main id="main" class="wrap">
     <section class="card">
-      <h1 class="title glitch" data-text="Айлис">Айлис</h1>
+      <h1 class="title crt-title">Айлис</h1>
       <p class="sub">digital / sound / links</p>
 
       <div class="grid">
         <div class="block">
           <h2>socials</h2>
           <ul>
-            <li><a class="sfx" href="https://t.me/aylis" target="_blank">telegram</a></li>
-            <li><a class="sfx" href="https://discord.com/users/AYLIS_ID" target="_blank">discord</a></li>
-            <li><a class="sfx" href="https://youtube.com/@aylis" target="_blank">youtube</a></li>
-            <li><a class="sfx" href="https://soundcloud.com/aylis" target="_blank">soundcloud</a></li>
+            <li><a class="sfx" href="https://t.me/aylis" target="_blank" rel="noreferrer">telegram</a></li>
+            <li><a class="sfx" href="https://discord.com/users/AYLIS_ID" target="_blank" rel="noreferrer">discord</a></li>
+            <li><a class="sfx" href="https://youtube.com/@aylis" target="_blank" rel="noreferrer">youtube</a></li>
+            <li><a class="sfx" href="https://soundcloud.com/aylis" target="_blank" rel="noreferrer">soundcloud</a></li>
           </ul>
         </div>
 
         <div class="block">
           <h2>music</h2>
           <ul>
-            <li><a class="sfx" href="https://soundcloud.com/aylis" target="_blank">soundcloud</a></li>
+            <li><a class="sfx" href="https://soundcloud.com/aylis" target="_blank" rel="noreferrer">soundcloud</a></li>
+            <li><a class="sfx" href="https://youtube.com/@aylis" target="_blank" rel="noreferrer">youtube</a></li>
           </ul>
         </div>
 
         <div class="block">
           <h2>contact</h2>
           <ul>
-            <li><a class="sfx" href="https://t.me/aylis" target="_blank">telegram</a></li>
-            <li><a class="sfx" href="https://discord.com/users/AYLIS_ID" target="_blank">discord</a></li>
+            <li><a class="sfx" href="https://t.me/aylis" target="_blank" rel="noreferrer">telegram</a></li>
+            <li><a class="sfx" href="https://discord.com/users/AYLIS_ID" target="_blank" rel="noreferrer">discord</a></li>
             <li><a class="sfx" href="mailto:aylis@mail.com">aylis@mail.com</a></li>
           </ul>
         </div>
@@ -69,10 +67,10 @@
 
   <!-- Overlay -->
   <section id="overlay" class="overlay" hidden>
-    <div class="overlay__panel">
+    <div class="overlay__panel" role="dialog" aria-modal="true">
       <div class="overlay__top">
         <div id="overlayTitle" class="overlay__title"></div>
-        <button id="closeOverlay" class="chip">go back</button>
+        <button id="closeOverlay" class="chip" type="button">go back</button>
       </div>
       <div id="overlayBody" class="overlay__body"></div>
     </div>
