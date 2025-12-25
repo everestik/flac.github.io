@@ -1,5 +1,6 @@
 const enterBtn = document.getElementById("enterBtn");
 const muteBtn = document.getElementById("muteBtn");
+
 const overlay = document.getElementById("overlay");
 const overlayTitle = document.getElementById("overlayTitle");
 const overlayBody = document.getElementById("overlayBody");
@@ -8,7 +9,7 @@ const closeOverlay = document.getElementById("closeOverlay");
 let muted = false;
 let entered = false;
 
-// Безопасно создаём аудио (если файлов нет — просто не играет)
+// safe audio
 let clickSfx = null;
 let ambient = null;
 
@@ -57,15 +58,38 @@ function openOverlay(){
         open on soundcloud
       </a>
     </p>
-    <p style="opacity:.7">latest sounds & experiments by Айлис</p>
+    <p style="opacity:.7">
+      latest sounds & experiments by Айлис
+    </p>
+    <p style="opacity:.7">
+      <a class="sfx" href="https://youtube.com/@aylis" target="_blank" rel="noreferrer">youtube</a>
+      <span style="opacity:.45">/</span>
+      <a class="sfx" href="https://t.me/aylis" target="_blank" rel="noreferrer">telegram</a>
+      <span style="opacity:.45">/</span>
+      <a class="sfx" href="https://discord.com/users/AYLIS_ID" target="_blank" rel="noreferrer">discord</a>
+    </p>
   `;
+
   overlay.hidden = false;
+  overlay.classList.remove("is-closing");
+  overlay.classList.add("is-opening");
   document.body.style.overflow = "hidden";
+
+  // remove opening class after animation
+  window.setTimeout(() => {
+    overlay.classList.remove("is-opening");
+  }, 360);
 }
 
-function close(){
-  overlay.hidden = true;
-  document.body.style.overflow = "";
+function closeOverlayAnimated(){
+  overlay.classList.remove("is-opening");
+  overlay.classList.add("is-closing");
+
+  window.setTimeout(() => {
+    overlay.hidden = true;
+    overlay.classList.remove("is-closing");
+    document.body.style.overflow = "";
+  }, 280);
 }
 
 // events
@@ -82,9 +106,9 @@ document.addEventListener("click", (e) => {
   }
 });
 
-closeOverlay.addEventListener("click", close);
-overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
-document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !overlay.hidden) close(); });
+closeOverlay.addEventListener("click", closeOverlayAnimated);
+overlay.addEventListener("click", (e) => { if (e.target === overlay) closeOverlayAnimated(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !overlay.hidden) closeOverlayAnimated(); });
 
-// стартовое состояние
+// initial
 setMuted(false);
